@@ -8,7 +8,7 @@ curl "http://mwe.grpud.net/ajax.asp" ^
   -H "Referer: http://mwe.grpud.net/login.asp" ^
   -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36" ^
   -H "X-Requested-With: XMLHttpRequest" ^
-  --data-raw "items=LOGIN_USER,mntfrc,Pandora6^!" ^
+  --data-raw "items=LOGIN_USER,mntfrc,xxxxxxxxxx" ^
   --compressed ^
   --insecure
   
