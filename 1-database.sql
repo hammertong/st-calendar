@@ -33,8 +33,21 @@ CREATE TABLE `users` (
     UNIQUE KEY `email` (`email`)   
 );
 
-insert into users (username, userpass, name, surname, email) values ('montini', md5('Federico1'), 'Federico', 'Montini', 'federico.montini@urmet.com');
-insert into users (username, userpass, name, surname, email) values ('bruzzese', md5('Giuseppe1'), 'Giuseppe', 'Bruzzese', 'giuseppe.bruzzese@urmet.com');
-insert into users (username, userpass, name, surname, email) values ('castellaro', md5('Massimiliano1'), 'Massimiliano', 'Castellaro', 'massimiliano.castellaro@urmet.com');
-insert into users (username, userpass, name, surname, email) values ('piazza', md5('Simone1'), 'Simone', 'Piazza', 'simone.piazza@urmet.com');
+ALTER TABLE `calendar`.`users` 
+  ADD COLUMN `default_color` VARCHAR(8) NULL AFTER `grp`;
+
+INSERT into users (username, userpass, name, surname, email) values ('montini', md5('Federico1'), 'Federico', 'Montini', 'federico.montini@urmet.com');
+INSERT into users (username, userpass, name, surname, email) values ('bruzzese', md5('Giuseppe1'), 'Giuseppe', 'Bruzzese', 'giuseppe.bruzzese@urmet.com');
+INSERT into users (username, userpass, name, surname, email) values ('castellaro', md5('Massimiliano1'), 'Massimiliano', 'Castellaro', 'massimiliano.castellaro@urmet.com');
+INSERT into users (username, userpass, name, surname, email) values ('piazza', md5('Simone1'), 'Simone', 'Piazza', 'simone.piazza@urmet.com');
+INSERT into users (username, userpass, name, surname, email) values ('zuin', md5('Matteo1'), 'Matteo', 'Zuin', 'matteo.zuin@urmet.com');
+
+UPDATE users set default_color = '#ed7d31' where username like 'bruzzese';
+UPDATE users set default_color = '#ffc000' where username like 'montini';
+UPDATE users set default_color = '#4472c4' where username like 'castellaro';
+UPDATE users set default_color = '#70ad47' where username like 'piazza';
+UPDATE users set default_color = '#ff0000' where username like 'zuin';
+
+ALTER TABLE `calendar`.`events`  ADD COLUMN `userid` INT(10) NULL AFTER `evt_bg`;
+
 

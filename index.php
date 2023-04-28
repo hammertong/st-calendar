@@ -2,6 +2,9 @@
 require_once  "config.php";
 require_once  "auth.php";
 
+session_start();
+$_SESSION["profile"] = $profile;
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,9 +34,12 @@ require_once  "auth.php";
       navigator.serviceWorker.register("5-worker.js");
     }
     </script>
-
+  
+    <script src="jquery.js"></script>    
+    <script src="controls.js"></script>
     <!-- JS + CSS -->
     <script src="4b-calendar.js"></script>
+    
     <link rel="stylesheet" href="4c-calendar.css">
   </head>
   <body>
@@ -58,8 +64,9 @@ require_once  "auth.php";
         } ?></select>
         <input id="calYear" type="number" value="<?=$yearNow?>">
         <input id="calNext" type="button" class="mi" value="&gt;">
-      </div>
+      </div>      
       <span style="color: white; font-weight: bolder;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
+      <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 10px; font-size: 10mm; margin-bottom: 5px;">&#9679;</span>
       <div style="display: none">
         <input id="calAdd" type="button" value="+">
       </div>

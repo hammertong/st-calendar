@@ -51,8 +51,8 @@ var cal = {
     cal.hfDel.onclick = cal.del;
 
     // (C3) DRAW DAY NAMES
-    let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-    if (cal.mon) { days.push("Sun"); } else { days.unshift("Sun"); }
+    let days = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
+    if (cal.mon) { days.push("Sun"); } else { days.unshift("Dom"); }
     for (let d of days) {
       let cell = document.createElement("div");
       cell.className = "calCell";
@@ -124,6 +124,7 @@ var cal = {
       rowB.appendChild(cell);
       cell = document.createElement("div");
       cell.className = "calCell";
+      cell.setAttribute('data-day', day);      
       if (day===undefined) { cell.classList.add("calBlank"); }
       if (day!==undefined && day==nowDay) { cell.classList.add("calToday"); }
       rowC.appendChild(cell);
@@ -240,7 +241,7 @@ var cal = {
   },
 
   // (I) DELETE EVENT
-  del : () => { if (confirm("Delete event?")) {
+  del : () => { if (1) {
     cal.ajax({
       req : "del", id : cal.hfID.value
     }, res => { if (res == "OK") {
