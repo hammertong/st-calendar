@@ -40,6 +40,13 @@ $_SESSION["profile"] = $profile;
     <!-- JS + CSS -->
     <script src="4b-calendar.js"></script>
     
+    <script>
+
+        window.profile = <?php echo json_encode($profile); ?>;
+  
+    </script>
+
+    
     <link rel="stylesheet" href="4c-calendar.css">
   </head>
   <body>

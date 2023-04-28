@@ -123,8 +123,8 @@ var cal = {
       if (day) { cell.innerHTML = day; }
       rowB.appendChild(cell);
       cell = document.createElement("div");
-      cell.className = "calCell";
-      cell.setAttribute('data-day', day);      
+      cell.className = "calCell";      
+      cell.setAttribute('data-day', day);  
       if (day===undefined) { cell.classList.add("calBlank"); }
       if (day!==undefined && day==nowDay) { cell.classList.add("calToday"); }
       rowC.appendChild(cell);

@@ -50,8 +50,6 @@ if ($stm->rowCount() > 0) {
     die("ok");
 }
 
-
-
 switch ($op) {
     case 1:
         $text = "SW " . $profile["name"] . " " . $profile["surname"];

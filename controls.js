@@ -1,24 +1,16 @@
 
-function disableCalendarForm() {
-    $("#calForm :input").attr("disabled","disabled")
-    $("#evtDel").attr("disabled",null);    
-    $("#calForm :submit").css("opacity", .3)
-}
 
 $( document ).ready(function() {
-   
-    //console.log( "ready!" );
-
+     
     setTimeout((o) => {
 
         $("#calForm :input").attr("disabled","disabled")
-        $("#evtDel").attr("disabled",null);
-        $("#calForm :submit").css("opacity", .3)
+        $("#evtDel").attr("disabled", null);    
+        $("#evtSave").attr("disabled", null);    
+        //$("#calForm :submit").css("opacity", .3)
 
         $('.calCell').on('click', function(o) {            
             try {
-
-                disableCalendarForm();
 
                 var d = parseInt(o.target.getAttribute('data-day'));
                 if (isNaN(d)) return;
@@ -34,7 +26,17 @@ $( document ).ready(function() {
                 day += '-';
                 if (d < 10) day += '0';
                 day += d;
+
                 
+                document.getElementById('calAdd').click();
+                setTimeout((p) => {                    
+                    $('#evtStart').val(day + ' 08:30:00');
+                    $('#evtEnd').val(day + ' 17:20:00');  
+                    $('#evtBG').val(profile.default_color);  
+                    $('#evtTxt').val('SW ' + profile.name + " " + profile.surname);
+                }, 500);
+                
+                /*
                 $.ajax({
                     url: 'sw.php',
                     type: 'POST',
@@ -55,6 +57,7 @@ $( document ).ready(function() {
                         console.log("error");
                     }
                 });
+                */
     
             }
             catch(e) {
@@ -63,6 +66,7 @@ $( document ).ready(function() {
 
         });
     }, 1000);
+
 
     // $('.calRowBack').on('click', function(data) {         
     //     debugger;
