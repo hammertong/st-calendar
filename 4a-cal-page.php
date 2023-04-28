@@ -22,9 +22,9 @@
 
     <!-- SERVICE WORKER -->
     <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("5-worker.js");
-    }
+    //if ("serviceWorker" in navigator) {
+    //  navigator.serviceWorker.register("5-worker.js");
+    //}
     </script>
 
     <!-- JS + CSS -->
