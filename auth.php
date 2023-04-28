@@ -21,7 +21,8 @@ if (FALSE === $stm->execute(array(":user" => $username, ":pass" => $password))) 
 
 $profile = $stm->fetch(PDO::FETCH_ASSOC);
 if ($profile === FALSE || $profile == null) {
-    http_response_code(403);
-    die("forbidden");
+    sleep(3);
+    echo 'Authentication required';
+    exit;    
 }
 
