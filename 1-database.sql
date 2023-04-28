@@ -33,7 +33,7 @@ CREATE TABLE `users` (
     UNIQUE KEY `email` (`email`)   
 );
 
-ALTER TABLE `calendar`.`users` 
+ALTER TABLE `users` 
   ADD COLUMN `default_color` VARCHAR(8) NULL AFTER `grp`;
 
 INSERT into users (username, userpass, name, surname, email) values ('montini', md5('Federico1'), 'Federico', 'Montini', 'federico.montini@urmet.com');
@@ -48,6 +48,6 @@ UPDATE users set default_color = '#4472c4' where username like 'castellaro';
 UPDATE users set default_color = '#70ad47' where username like 'piazza';
 UPDATE users set default_color = '#ff0000' where username like 'zuin';
 
-ALTER TABLE `calendar`.`events`  ADD COLUMN `userid` INT(10) NULL AFTER `evt_bg`;
+ALTER TABLE `events`  ADD COLUMN `userid` INT(10) NULL AFTER `evt_bg`;
 
 
