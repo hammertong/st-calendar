@@ -1,3 +1,8 @@
+<?php
+require_once  "config.php";
+require_once  "auth.php";
+
+?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -43,7 +48,7 @@
     $yearNow = date("Y"); ?>
 
     <!-- (B) PERIOD SELECTOR -->
-    <div id="calHead">
+    <div id="calHead">      
       <div id="calPeriod">
         <input id="calBack" type="button" class="mi" value="&lt;">
         <select id="calMonth"><?php foreach ($months as $m=>$mth) {
@@ -54,7 +59,10 @@
         <input id="calYear" type="number" value="<?=$yearNow?>">
         <input id="calNext" type="button" class="mi" value="&gt;">
       </div>
-      <input id="calAdd" type="button" value="+">
+      <span style="color: white; font-weight: bolder;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
+      <div style="display: none">
+        <input id="calAdd" type="button" value="+">
+      </div>
     </div>
 
     <!-- (C) CALENDAR WRAPPER -->

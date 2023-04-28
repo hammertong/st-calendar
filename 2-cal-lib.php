@@ -1,6 +1,6 @@
 <?php
 
-include "config.php";
+require_once "config.php";
 
 class Calendar {
   // (A) CONSTRUCTOR - CONNECT TO DATABASE

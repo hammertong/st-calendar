@@ -10,18 +10,28 @@
   "timezone": "Europe/Rome",
   "readme": "https://ipinfo.io/missingauth"
 }
-o
-CREATE\040TABLE\040`users`\040(\040\040\040`userid`\040int(10)\040NOT\040NULL\040UNIQUE\040AUTO_INCREMENT\040COMMENT\040'user\040id\040univoco',\040\040\040`name`\040varchar(40)\040NOT\040NULL,\040\040\040`surname`\040varchar(40)\040NOT\040NULL,\040\040\040`email`\040varchar(64)\040NOT\040NULL,\040\040\040`username`\040varchar(32)\040NOT\040NULL,\040\040\040`userpass`\040varchar(32)\040NOT\040NULL,\040\040\040`my_lang`\040enum('it-it','en-us','es-es','fr-fr','de-de')\040NOT\040NULL\040DEFAULT\040'it-it',\040\040\040`user_status`\040int(1)\040NOT\040NULL\040DEFAULT\040'0'\040COMMENT\040'0=inactive,\0401=active,\0402=disabled',\040\040\040`grp`\040enum('admins','user')\040NOT\040NULL\040DEFAULT\040'user',\040PRIMARY\040KEY\040(`userid`),\040UNIQUE\040KEY\040`email`\040(`email`)\040\040\040);
-show\040tables;
-select\040*\040from\040users
-;
-insert\040into\040users\040(username,\040userpass,\040email)\040values\040('montini',\040sha1('Federico1').\040'federico.montini@urmet.com');
-insert\040into\040users\040(username,\040userpass,\040email)\040values\040('montini',\040sha1('Federico1'),\040'federico.montini@urmet.com');
-insert\040into\040users\040(username,\040userpass,\040email)\040values\040('montini',\040md5('Federico1'),\040'federico.montini@urmet.com');
-insert\040into\040users\040(username,\040userpass,\040email)\040values\040('montini',\040md5('Federico1'),\040'Federico',\040'Montini',\040'federico.montini@urmet.com');
-insert\040into\040users\040(username,\040userpass,\040name,\040surname,\040email)\040values\040('montini',\040md5('Federico1'),\040'Federico',\040'Montini',\040'federico.montini@urmet.com');
-insert\040into\040users\040(username,\040userpass,\040name,\040surname,\040email)\040values\040('bruzzese',\040md5('Giuseppe1'),\040'Giuseppe',\040'Bruzzese',\040'giuseppe.bruzzese@urmet.com');
-insert\040into\040users\040(username,\040userpass,\040name,\040surname,\040email)\040values\040('castellaro',\040md5('Massimiliano1'),\040'Massimiliano',\040'Castellaro',\040'massimiliano.castellaro@urmet.com');
+
+CREATE TABLE `users` (
+    `userid` int(10) NOT NULL UNIQUE AUTO_INCREMENT COMMENT 'user id univoco',   
+    `name` varchar(40) NOT NULL,   
+    `surname` varchar(40) NOT NULL,   
+    `email` varchar(64) NOT NULL,   
+    `username` varchar(32) NOT NULL,   
+    `userpass` varchar(32) NOT NULL,   
+    `my_lang` enum('it-it','en-us','es-es','fr-fr','de-de') NOT NULL DEFAULT 'it-it',   
+    `user_status` int(1) NOT NULL DEFAULT '0' COMMENT '0=inactive, 1=active, 2=disabled',   
+    `grp` enum('admins','user') NOT NULL DEFAULT 'user', 
+    PRIMARY KEY (`userid`), 
+    UNIQUE KEY `email` (`email`)   
+);
+
+insert into users (username, userpass, email) values ('montini', sha1('Federico1'). 'federico.montini@urmet.com');
+insert into users (username, userpass, email) values ('montini', sha1('Federico1'), 'federico.montini@urmet.com');
+insert into users (username, userpass, email) values ('montini', md5('Federico1'), 'federico.montini@urmet.com');
+insert into users (username, userpass, email) values ('montini', md5('Federico1'), 'Federico', 'Montini', 'federico.montini@urmet.com');
+insert into users (username, userpass, name, surname, email) values ('montini', md5('Federico1'), 'Federico', 'Montini', 'federico.montini@urmet.com');
+insert into users (username, userpass, name, surname, email) values ('bruzzese', md5('Giuseppe1'), 'Giuseppe', 'Bruzzese', 'giuseppe.bruzzese@urmet.com');
+insert into users (username, userpass, name, surname, email) values ('castellaro', md5('Massimiliano1'), 'Massimiliano', 'Castellaro', 'massimiliano.castellaro@urmet.com');
 
 
 
