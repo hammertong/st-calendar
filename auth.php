@@ -21,8 +21,10 @@ if (FALSE === $stm->execute(array(":user" => $username, ":pass" => $password))) 
 
 $profile = $stm->fetch(PDO::FETCH_ASSOC);
 if ($profile === FALSE || $profile == null) {
-    sleep(3);
-    echo 'Authentication required';
+    sleep(2);
+    header('WWW-Authenticate: Basic realm="ST Presence"');
+    header('HTTP/1.0 401 Unauthorized');
+    echo 'Authentication required';    
     exit;    
 }
 
