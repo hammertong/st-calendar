@@ -1,4 +1,5 @@
 var cal = {
+
   // (A) PROPERTIES
   mon : false, // monday first
   events : null, // events data for current month/year
@@ -120,6 +121,45 @@ var cal = {
     celler = day => {
       cell = document.createElement("div");
       cell.className = "calCell";
+      if (day && parseInt (day) > 0) {
+        cell.style.borderBottom = '1px dotted #efefef';
+        cell.style.cursor = 'pointer';
+        cell.setAttribute('data-day', day); 
+        cell.onclick = function(o) {            
+          try {
+
+            debugger;
+            
+              $("#calForm :input").attr("disabled","disabled")
+              $("#evtDel").attr("disabled", null);    
+              $("#evtSave").attr("disabled", null);    
+              var d = parseInt(o.target.getAttribute('data-day'));
+              if (isNaN(d)) return;
+              var m = parseInt($('#calMonth').val());
+              var y = parseInt($('#calYear').val());
+              var day = "";
+              day += y;
+              day += '-';
+              if (m < 10) day += '0';
+              day += m;
+              day += '-';
+              if (d < 10) day += '0';
+              day += d;
+              document.getElementById('calAdd').click();
+              setTimeout((p) => {                    
+                  $('#evtStart').val(day + ' 08:30:00');
+                  $('#evtEnd').val(day + ' 17:20:00');  
+                  $('#evtColor').val('#ffffff');  
+                  $('#evtBG').val(profile.default_color);  
+                  $('#evtTxt').val('SW ' + profile.name + " " + profile.surname);
+              }, 100);
+          }
+          catch(e) {
+              console.error(e);
+          }            
+        };
+      } 
+        
       if (day) { cell.innerHTML = day; }
       rowB.appendChild(cell);
       cell = document.createElement("div");
@@ -188,8 +228,15 @@ var cal = {
         rowB.style.color = cal.events[id]["c"];
         rowB.style.backgroundColor  = cal.events[id]["b"];
         rowB.classList.add("w"+w);
+
         if (o!=0) { rowB.classList.add("o"+o); }
-        rowB.onclick = () => cal.show(id);
+        if (cal.events[id]["b"] == profile['default_color']) {
+          rowB.onclick = () => cal.show(id);        
+          rowB.style.cursor = 'pointer';
+        }
+        else {
+          rowB.style.cursor = 'default';
+        }
         rowA.appendChild(rowB);
       }
     }}

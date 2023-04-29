@@ -2,12 +2,16 @@
 
 require_once "config.php";
 
+
 class Calendar {
   // (A) CONSTRUCTOR - CONNECT TO DATABASE
   private $pdo = null;
   private $stmt = null;
   public $error = "";
+  public $profile = null;
   function __construct () {
+    session_start();
+    $this->profile = $_SESSION["profile"];
     $this->pdo = new PDO(
       "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET,
       DB_USER, DB_PASSWORD, [
@@ -38,11 +42,11 @@ class Calendar {
 
     // (D2) RUN SQL
     if ($id==null) {
-      $sql = "INSERT INTO `events` (`evt_start`, `evt_end`, `evt_text`, `evt_color`, `evt_bg`) VALUES (?,?,?,?,?)";
-      $data = [$start, $end, strip_tags($txt), $color, $bg];
+      $sql = "INSERT INTO `events` (`evt_start`, `evt_end`, `evt_text`, `evt_color`, `evt_bg`, `userid`) VALUES (?,?,?,?,?,?)";
+      $data = [$start, $end, strip_tags($txt), $color, $bg, $this->profile['userid']];
     } else {
-      $sql = "UPDATE `events` SET `evt_start`=?, `evt_end`=?, `evt_text`=?, `evt_color`=?, `evt_bg`=? WHERE `evt_id`=?";
-      $data = [$start, $end, strip_tags($txt), $color, $bg, $id];
+      $sql = "UPDATE `events` SET `evt_start`=?, `evt_end`=?, `evt_text`=?, `evt_color`=?, `evt_bg`=?, `userid`=? WHERE `evt_id`=?";
+      $data = [$start, $end, strip_tags($txt), $color, $bg, $this->profile['userid'], $id];
     }
     $this->query($sql, $data);
     return true;

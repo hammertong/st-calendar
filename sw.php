@@ -2,6 +2,10 @@
 
 require_once  "config.php";
 
+//
+// TBD usare questa per scaricare l'export csv o altre azioni 
+//
+
 $method =  $_SERVER["REQUEST_METHOD"];
 if (strcasecmp($method, "POST")) {
     http_response_code(405);
