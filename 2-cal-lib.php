@@ -40,6 +40,14 @@ class Calendar {
       return false;
     }
 
+    // block double SW insertion
+    $this->query(
+      "SELECT count(*) as is_present from `events` where DATE (`evt_start`) = DATE(?) and userid = ?", 
+      [ $start, $this->profile['userid'] ]
+    );
+    $check = $this->stmt->fetch();
+    if (intval ($check["is_present"]) > 0) return true;
+    
     // (D2) RUN SQL
     if ($id==null) {
       $sql = "INSERT INTO `events` (`evt_start`, `evt_end`, `evt_text`, `evt_color`, `evt_bg`, `userid`) VALUES (?,?,?,?,?,?)";
