@@ -1,4 +1,7 @@
 <?php
+require_once  "config.php";
+require_once  "session.php";
+
 if (isset($_POST["req"])) {
   // (A) LOAD LIBRARY
   require "2-cal-lib.php";

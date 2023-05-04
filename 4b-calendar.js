@@ -126,13 +126,7 @@ var cal = {
         cell.style.cursor = 'pointer';
         cell.setAttribute('data-day', day); 
         cell.onclick = function(o) {            
-          try {
-
-            debugger;
-            
-              $("#calForm :input").attr("disabled","disabled")
-              $("#evtDel").attr("disabled", null);    
-              $("#evtSave").attr("disabled", null);    
+          try {              
               var d = parseInt(o.target.getAttribute('data-day'));
               if (isNaN(d)) return;
               var m = parseInt($('#calMonth').val());

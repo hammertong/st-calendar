@@ -1,7 +1,6 @@
 <?php
-
-require_once "config.php";
-
+require_once  "config.php";
+require_once  "session.php";
 
 class Calendar {
   // (A) CONSTRUCTOR - CONNECT TO DATABASE
@@ -9,10 +8,10 @@ class Calendar {
   private $stmt = null;
   public $error = "";
   public $profile = null;
+  
   function __construct () {
-    session_start();
     $this->profile = $_SESSION["profile"];
-    $this->pdo = new PDO(
+	$this->pdo = new PDO(
       "mysql:host=".DB_HOST.";dbname=".DB_NAME.";charset=".DB_CHARSET,
       DB_USER, DB_PASSWORD, [
       PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -65,6 +64,11 @@ class Calendar {
     $this->query("DELETE FROM `events` WHERE `evt_id`=?", [$id]);
     return true;
   }
+  
+  function rolesContain($role) {
+	  // check $this->profile["roles"];
+	  return true;
+  }
 
   // (F) GET EVENTS FOR SELECTED PERIOD
   function get ($month, $year) {
@@ -75,15 +79,20 @@ class Calendar {
     $start = $dateYM . "01 00:00:00";
     $end = $dateYM . $daysInMonth . " 23:59:59";
 
+	$group_filter = "";
+	if (! $this->rolesContain('admin') ) {
+		$group_filter = "AND $grp = " . $this->profile['grp'];
+	}
+
     // (F2) GET EVENTS
     // s & e : start & end date
     // c & b : text & background color
     // t : event text
-    $this->query("SELECT * FROM `events` WHERE (
+    $this->query("SELECT * FROM `events` WHERE (	  
       (`evt_start` BETWEEN ? AND ?)
       OR (`evt_end` BETWEEN ? AND ?)
       OR (`evt_start` <= ? AND `evt_end` >= ?)
-    )", [$start, $end, $start, $end, $start, $end]);
+    ) $group_filter ", [$start, $end, $start, $end, $start, $end]);
     $events = [];
     while ($r = $this->stmt->fetch()) {
       $events[$r["evt_id"]] = [

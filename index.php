@@ -1,9 +1,8 @@
 <?php
 require_once  "config.php";
-require_once  "auth.php";
+require_once  "session.php";
 
-session_start();
-$_SESSION["profile"] = $profile;
+$profile = $_SESSION["profile"];
 
 ?>
 <!DOCTYPE html>
@@ -72,8 +71,9 @@ $_SESSION["profile"] = $profile;
         <input id="calYear" type="number" value="<?=$yearNow?>">
         <input id="calNext" type="button" class="mi" value="&gt;">
       </div>      
+      <span style="color: white; font-weight: bolder; opacity: .6; font-style: italic;"><?php echo $profile["organization"]; ?> &nbsp; </span>
       <span style="color: white; font-weight: bolder;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
-      <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 10px; font-size: 10mm; margin-bottom: 5px;">&#9679;</span>
+      <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 7px; font-size: 8mm; margin-bottom: 3px;">&#9679;</span>
       <div style="display: none">
         <input id="calAdd" type="button" value="+">
       </div>
@@ -91,23 +91,23 @@ $_SESSION["profile"] = $profile;
       <h2 class="evt100">CALENDAR EVENT</h2>
       <div class="evt50">
         <label>Start</label>
-        <input id="evtStart" type="datetime-local" required>
+        <input id="evtStart" type="datetime-local" required disabled='disabled'>
       </div>
       <div class="evt50">
         <label>End</label>
-        <input id="evtEnd" type="datetime-local" required>
+        <input id="evtEnd" type="datetime-local" required disabled='disabled'>
       </div>
       <div class="evt50" style="display: none;">
         <label>Text Color</label>
-        <input id="evtColor" type="color" value="#000000" required>
+        <input id="evtColor" type="color" value="#000000" required disabled='disabled'>
       </div>
       <div class="evt50" style="display: none;">
         <label>Background Color</label>
-        <input id="evtBG" type="color" value="#ffdbdb" required>
+        <input id="evtBG" type="color" value="#ffdbdb" required disabled='disabled'>
       </div>
       <div class="evt100">
         <label>Event</label>
-        <input id="evtTxt" type="text" required>
+        <input id="evtTxt" type="text" required disabled='disabled'>
       </div>
       <div class="evt100">
         <input type="hidden" id="evtID">

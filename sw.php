@@ -1,6 +1,7 @@
 <?php
 
 require_once  "config.php";
+require_once  "session.php";
 
 //
 // TBD usare questa per scaricare l'export csv o altre azioni 
@@ -18,7 +19,6 @@ if ($_POST == null || count($_POST) < 3) {
 }
 $data = $_POST;
 
-session_start();
 if ( ! isset($_SESSION["profile"])) {
     http_response_code(403);
     die("forbidden");
