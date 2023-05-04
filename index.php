@@ -97,11 +97,11 @@ $_SESSION["profile"] = $profile;
         <label>End</label>
         <input id="evtEnd" type="datetime-local" required>
       </div>
-      <div class="evt50">
+      <div class="evt50" style="display: none;">
         <label>Text Color</label>
         <input id="evtColor" type="color" value="#000000" required>
       </div>
-      <div class="evt50">
+      <div class="evt50" style="display: none;">
         <label>Background Color</label>
         <input id="evtBG" type="color" value="#ffdbdb" required>
       </div>
