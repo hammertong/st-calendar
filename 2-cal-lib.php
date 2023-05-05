@@ -67,7 +67,7 @@ class Calendar {
   
   function getFilterView() {
 	//TBD ...
-    error_log("check role ...: " . $this->profile["roles"]);
+    //error_log("check role ...: " . $this->profile["roles"]);
 	return "";
   }
 
