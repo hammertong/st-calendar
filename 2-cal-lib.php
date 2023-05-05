@@ -65,9 +65,10 @@ class Calendar {
     return true;
   }
   
-  function rolesContain($role) {
-	  // check $this->profile["roles"];
-	  return true;
+  function getFilterView() {
+	//TBD ...
+    error_log("check role ...: " . $this->profile["roles"]);
+	return "";
   }
 
   // (F) GET EVENTS FOR SELECTED PERIOD
@@ -79,10 +80,7 @@ class Calendar {
     $start = $dateYM . "01 00:00:00";
     $end = $dateYM . $daysInMonth . " 23:59:59";
 
-	$group_filter = "";
-	if (! $this->rolesContain('admin') ) {
-		$group_filter = "AND $grp = " . $this->profile['grp'];
-	}
+    $filter = $this->getFilterView();     
 
     // (F2) GET EVENTS
     // s & e : start & end date
@@ -92,7 +90,7 @@ class Calendar {
       (`evt_start` BETWEEN ? AND ?)
       OR (`evt_end` BETWEEN ? AND ?)
       OR (`evt_start` <= ? AND `evt_end` >= ?)
-    ) $group_filter ", [$start, $end, $start, $end, $start, $end]);
+    ) $filter ", [$start, $end, $start, $end, $start, $end]);
     $events = [];
     while ($r = $this->stmt->fetch()) {
       $events[$r["evt_id"]] = [

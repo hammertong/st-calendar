@@ -1,5 +1,4 @@
 
-
 INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VALUES 
 ('2023-04-27 08:30:00', '2023-04-27 17:20:00', 'SW Federico Montini', '#ffffff', '#ffc000', userid);
 INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VALUES 
@@ -12,7 +11,6 @@ INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VAL
 ('2023-05-24 08:30:00', '2023-05-24 17:20:00', 'SW Federico Montini', '#ffffff', '#ffc000', userid);
 INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VALUES 
 ('2023-05-29 08:30:00', '2023-05-29 17:20:00', 'SW Federico Montini', '#ffffff', '#ffc000', userid);
-
 
 INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VALUES 
 ('2023-04-28 08:30:00', '2023-04-28 17:20:00', 'SW Giuseppe Bruzzese', '#ffffff', '#ed7d31', userid);
@@ -47,6 +45,12 @@ INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VAL
 ('2023-05-19 08:30:00', '2023-05-19 17:20:00', 'SW Simone Piazza', '#ffffff', '#70ad47', userid);
 INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg, userid) VALUES 
 ('2023-05-30 08:30:00', '2023-05-30 17:20:00', 'SW Simone Piazza', '#ffffff', '#70ad47', userid);
+
+update events set userid = (select userid from users where username like 'piazza' limit 1) where evt_text like '%piazza%';
+update events set userid = (select userid from users where username like 'montini' limit 1) where evt_text like '%montini%';
+update events set userid = (select userid from users where username like 'zuin' limit 1) where evt_text like '%zuin%';
+update events set userid = (select userid from users where username like 'bruzzese' limit 1) where evt_text like '%bruzzese%';
+update events set userid = (select userid from users where username like 'castellaro' limit 1) where evt_text like '%castellaro%';
 
 
 

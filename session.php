@@ -18,7 +18,7 @@ if ( ! isset ($_SESSION["profile"]) ) {
 	$password = $_SERVER['PHP_AUTH_PW'];
 
 	$pdo = new PDO ( "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
-	$stm = $pdo->prepare("SELECT `users`.*, `groups`.name as organization from users join `groups` on `users`.grp = `groups`.id where username = :user and userpass = MD5(:pass) and user_status = 1");
+	$stm = $pdo->prepare("SELECT `users`.*, `groups`.name as organization from users join `groups` on `users`.grp = `groups`.id where username like :user and userpass = MD5(:pass) and user_status = 1");
 	if (FALSE === $stm->execute(array(":user" => $username, ":pass" => $password))) {
 		error_log("auth.php::sql error 1 " . json_encode($stm->errorInfo()));
 		$pdo = null;
