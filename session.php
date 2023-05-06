@@ -43,7 +43,9 @@ if ( ! isset ($_SESSION["profile"]) ) {
 		http_response_code(500);
 		die("server error");
 	}
-	$profile["roles"] = $stm->fetchall(PDO::FETCH_ASSOC);
+	$profile["roles"] = array(); 
+	foreach ($stm->fetchall(PDO::FETCH_ASSOC) as $role)
+		array_push ($profile["roles"], $role["name"]);
 
 	$pdo = null;
 	

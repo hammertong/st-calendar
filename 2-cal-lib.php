@@ -65,10 +65,22 @@ class Calendar {
     return true;
   }
   
-  function getFilterView() {
+  function getEventsView() {
 	//TBD ...
-    //error_log("check role ...: " . $this->profile["roles"]);
-	return "";
+        error_log("getEventsView, check role ...: " . json_encode($this->profile));
+        if (in_array("admin", $this->profile["roles"])) {
+        	$sql = "SELECT * FROM `events` WHERE 	  
+        	    (`evt_start` BETWEEN ? AND ?)
+        	        OR (`evt_end` BETWEEN ? AND ?)
+        	        OR (`evt_start` <= ? AND `evt_end` >= ?)";
+	}
+	else {
+        	$sql = "SELECT * FROM `events` join `users` on `events`.userid= `users`.userid WHERE (	  
+        	    (`evt_start` BETWEEN ? AND ?)
+        	        OR (`evt_end` BETWEEN ? AND ?)
+        	        OR (`evt_start` <= ? AND `evt_end` >= ?)) and `users`.grp = " . $this->profile["grp"];
+	}
+        return $sql;
   }
 
   // (F) GET EVENTS FOR SELECTED PERIOD
@@ -80,17 +92,15 @@ class Calendar {
     $start = $dateYM . "01 00:00:00";
     $end = $dateYM . $daysInMonth . " 23:59:59";
 
-    $filter = $this->getFilterView();     
+    $myView = $this->getEventsView();     
 
     // (F2) GET EVENTS
     // s & e : start & end date
     // c & b : text & background color
     // t : event text
-    $this->query("SELECT * FROM `events` WHERE (	  
-      (`evt_start` BETWEEN ? AND ?)
-      OR (`evt_end` BETWEEN ? AND ?)
-      OR (`evt_start` <= ? AND `evt_end` >= ?)
-    ) $filter ", [$start, $end, $start, $end, $start, $end]);
+    $this->query( 
+	$this->getEventsView(), 
+	[$start, $end, $start, $end, $start, $end]);
     $events = [];
     while ($r = $this->stmt->fetch()) {
       $events[$r["evt_id"]] = [
