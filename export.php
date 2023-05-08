@@ -7,6 +7,38 @@ require_once  "session.php";
 // TBD usare questa per scaricare l'export csv o altre azioni 
 //
 
+
+$output = [
+	[
+		"<span style='text-align: left; background: #e0e0e0; border: 1px solid black;'>col1</span>",
+		"<span style='text-align: center; background: #e0e0e0; border: 1px solid black;'>col2</span>",
+		"<span style='text-align: right; background: #e0e0e0; border: 1px solid black;'>col3</span>"
+	],
+	[
+		"r1,1",
+		"r1,2",
+		"r1,3"
+	],
+	[
+		"r2,1",
+		"r2,2",
+		"r2,3"
+	]
+];
+
+
+$xlsx = new SimpleXLSXGen();
+$xlsx->addSheet( $output, "Maggio 2023");
+
+
+//$xlsx->setDefaultFont( 'Lucida Console' )
+//	->setDefaultFontSize( 10 )
+//	->saveAs($outputFile);
+    
+
+
+/*
+
 $method =  $_SERVER["REQUEST_METHOD"];
 if (strcasecmp($method, "POST")) {
     http_response_code(405);
@@ -100,4 +132,5 @@ $pdo = null;
 http_response_code(204);
 die("no content");
 
+*/
 
