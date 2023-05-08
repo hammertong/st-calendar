@@ -1,5 +1,23 @@
 # ST presence calendar 
 
+## TODO
+
+### filtro 
+``
+	$('.calRowEvt').each(function(o) { console.log(o); })
+``
+### evidenziare click per inserimento 
+
+### export excel del mese
+``         
+          01 02 03 04 ... 30 31 
+username1  x  x     x  
+username2
+username3
+...
+
+``
+
 ## Updating admin profiles
 
 ``
@@ -11,7 +29,6 @@
 
 3) insert one record in profiles foreach users found
   insert into profiles (roleid, userid) values (4, 6);
-
 
 ``
 

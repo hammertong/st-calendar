@@ -1,136 +1,56 @@
 <?php
 
-require_once  "config.php";
-require_once  "session.php";
-
-//
-// TBD usare questa per scaricare l'export csv o altre azioni 
-//
+require_once "config.php";
+require_once "session.php";
 
 
-$output = [
-	[
-		"<span style='text-align: left; background: #e0e0e0; border: 1px solid black;'>col1</span>",
-		"<span style='text-align: center; background: #e0e0e0; border: 1px solid black;'>col2</span>",
-		"<span style='text-align: right; background: #e0e0e0; border: 1px solid black;'>col3</span>"
-	],
-	[
-		"r1,1",
-		"r1,2",
-		"r1,3"
-	],
-	[
-		"r2,1",
-		"r2,2",
-		"r2,3"
-	]
-];
 
+require "vendor/autoload.php";
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-$xlsx = new SimpleXLSXGen();
-$xlsx->addSheet( $output, "Maggio 2023");
+define ('COLS', [
+	"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
+	"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+	"AA", "AB", "AC", "AD", "AE", "AF", "AG"
+]);
 
+$month 	= 5;
+$year 	= 2023;
 
-//$xlsx->setDefaultFont( 'Lucida Console' )
-//	->setDefaultFontSize( 10 )
-//	->saveAs($outputFile);
-    
-
-
-/*
-
-$method =  $_SERVER["REQUEST_METHOD"];
-if (strcasecmp($method, "POST")) {
-    http_response_code(405);
-    die("method not allowed");
-}
-
-if ($_POST == null || count($_POST) < 3) {
-    http_response_code(400);
-    die("bad request");
-}
-$data = $_POST;
-
-if ( ! isset($_SESSION["profile"])) {
-    http_response_code(403);
-    die("forbidden");
-}
-
-$profile = $_SESSION["profile"];
-if ( ! isset($profile["userid"])) {
-    http_response_code(401);
-    die("unauthorized");
-}
-
-$userid = $profile["userid"];
-$color = $profile["default_color"];
+$sheetName 	= "$year" . "-" . ($month < 10 ? "0" : "" ) . "$month";
 
 $pdo = new PDO ( "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME, DB_USER, DB_PASSWORD, array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8") );
-$op =intval($data["op"]);
-
-$stm = $pdo->prepare("SELECT * FROM calendar.events where DATE(evt_start) = DATE(:startTime) and userid = :userid;");
-if (FALSE === $stm->execute(array(":userid" => $userid, ":startTime" => $data["startTime"]))) {
+$stm = $pdo->prepare("SELECT * FROM events where MONTH(evt_start) = :month and YEAR(evt_start) = :year;");
+if (FALSE === $stm->execute(array(":month" => $month, ":year" => $year))) {
     error_log("sql error(1): " . json_encode($stm->errorInfo()));
-    http_response_code(500);
+    //http_response_code(500);
     die("server error");
 }
-
-if ($stm->rowCount() > 0) {
-    $stm = $pdo->prepare("DELETE FROM calendar.events where DATE(evt_start) = DATE(:startTime) and userid = :userid;");
-    if (FALSE === $stm->execute(array(":userid" => $userid, ":startTime" => $data["startTime"]))) {
-        error_log("sql error(3): " . json_encode($stm->errorInfo()));
-        http_response_code(500);
-        die("server error");
-    }
-    http_response_code(200);
-    die("ok");
-}
-
-switch ($op) {
-    case 1:
-        $text = "SW " . $profile["name"] . " " . $profile["surname"];
-        //E.G.: INSERT INTO events (evt_start, evt_end, evt_text, evt_color, evt_bg) VALUES ('2023-04-14 08:30:00', '2023-04-14 17:20:00', 'SW PROVA', '#ffffff', $color) ;
-        $stm = $pdo->prepare("INSERT INTO events (
-                    evt_start, 
-                    evt_end, 
-                    evt_text, 
-                    evt_color, 
-                    evt_bg, 
-                    userid ) 
-                VALUES (
-                    :start, 
-                    :end, 
-                    :text,                     
-                    :fgcolor, 
-                    :bgcolor,
-                    :userid
-                    );");
-        if (FALSE === $stm->execute(
-                array(
-                    ":start" => $data["startTime"],
-                    ":end" => $data["endTime"],
-                    ":text" => $text,
-                    ":userid" => $userid,
-                    ":fgcolor" => '#ffffff',
-                    ":bgcolor" => $color
-                ))) {
-            error_log("sql error(2): " . json_encode($stm->errorInfo()));
-            http_response_code(500);
-            die("server error");
-        }        
-        http_response_code(200);
-        die("ok");
-        break;
-
-    case 2: 
-
-        break;
-}
-
+$rows = $stm->fetchAll(PDO::FETCH_ASSOC);
 $pdo = null;
 
-http_response_code(204);
-die("no content");
+$spreadsheet = new Spreadsheet();
+$sheet = $spreadsheet->getActiveSheet();
+//$sheet->setSheetName("$sheetName");
 
-*/
+$n = 31;
+for ($i = 1; $i <= $n; $i ++) {	
+	$sheet->setCellValue(COLS[$i] . "1", $i);
+}
+
+$n = 1;
+foreach($rows as $row) {
+	//TBD...
+	$n ++;
+	$sheet->setCellValue("A" . $n, $row["evt_text"]);
+}
+
+$writer = new Xlsx($spreadsheet);
+$writer->save("/run/media/federico/MNTFRC01/repositories/uc_tools/calendar/export." . time() . ".xlsx");
+
+//http_response_code(204);
+//die("no content");
+
+
 

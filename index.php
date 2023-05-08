@@ -38,15 +38,38 @@ $profile = $_SESSION["profile"];
     
     <!-- JS + CSS -->
     <script src="4b-calendar.js"></script>
-    
+	
+	<link rel="stylesheet" href="autocomplete.css">
+    <script src="autocomplete.js"></script>
     <script>
 
-        window.profile = <?php echo json_encode($profile); ?>;
+		function autocomplete_filter() {			
+			$('.calRowEvt').each(function(o) { 
+				//console.log(o); 
+				debugger;
+			})			
+		}
+
+		
+		$( document ).ready(function() {
+			
+			window.profile = <?php echo json_encode($profile); ?>;
+					
+			var cc = ['federico', 'giuseppe', 'simone'];
+			
+			//console.log( "ready!" );
+			autocomplete(document.getElementById("myInput"), cc);
+			
+			
+
+		});
+		
   
     </script>
 
     
     <link rel="stylesheet" href="4c-calendar.css">
+	
   </head>
   <body>
     <?php
@@ -70,7 +93,14 @@ $profile = $_SESSION["profile"];
         } ?></select>
         <input id="calYear" type="number" value="<?=$yearNow?>">
         <input id="calNext" type="button" class="mi" value="&gt;">
-      </div>      
+      </div>    
+
+	<!--
+	  <div class="autocomplete">
+		<input autocomplete="off" class="autocomplete" id="myInput" type="text" name="myCountry" placeholder="filtra risultati ...">
+	  </div>
+	  -->
+		  
       <span style="color: white; font-weight: bolder; opacity: .6; font-style: italic;"><?php echo $profile["organization"]; ?> &nbsp; </span>
       <span style="color: white; font-weight: bolder;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
       <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 7px; font-size: 8mm; margin-bottom: 3px;">&#9679;</span>
