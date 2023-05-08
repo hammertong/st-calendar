@@ -53,7 +53,7 @@ var cal = {
 
     // (C3) DRAW DAY NAMES
     let days = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab"];
-    if (cal.mon) { days.push("Sun"); } else { days.unshift("Dom"); }
+    if (cal.mon) { days.push("Dom"); } else { days.unshift("Dom"); }
     for (let d of days) {
       let cell = document.createElement("div");
       cell.className = "calCell";
@@ -125,34 +125,43 @@ var cal = {
         cell.style.borderBottom = '1px dotted #efefef';
         cell.style.cursor = 'pointer';
         cell.setAttribute('data-day', day); 
-        cell.onclick = function(o) {            
-          try {              
-              var d = parseInt(o.target.getAttribute('data-day'));
-              if (isNaN(d)) return;
-              var m = parseInt($('#calMonth').val());
-              var y = parseInt($('#calYear').val());
-              var day = "";
-              day += y;
-              day += '-';
-              if (m < 10) day += '0';
-              day += m;
-              day += '-';
-              if (d < 10) day += '0';
-              day += d;
-              document.getElementById('calAdd').click();
-              setTimeout((p) => {                    
-                  $('#evtStart').val(day + ' 08:30:00');
-                  $('#evtEnd').val(day + ' 17:20:00');  
-                  $('#evtColor').val('#ffffff');  
-                  $('#evtBG').val(profile.default_color);  
-                  $('#evtTxt').val('SW ' + profile.name + " " + profile.surname);
-              }, 100);
-          }
-          catch(e) {
-              console.error(e);
-          }            
-        };
-      } 
+		
+		//debugger;
+		//console.log(cellNum % 7);
+		
+		if (cellNum % 7 > 1) {
+			cell.onclick = function(o) {            
+			  try {              
+				  var d = parseInt(o.target.getAttribute('data-day'));
+				  if (isNaN(d)) return;
+				  var m = parseInt($('#calMonth').val());
+				  var y = parseInt($('#calYear').val());
+				  var day = "";
+				  day += y;
+				  day += '-';
+				  if (m < 10) day += '0';
+				  day += m;
+				  day += '-';
+				  if (d < 10) day += '0';
+				  day += d;
+				  document.getElementById('calAdd').click();
+				  setTimeout((p) => {                    
+					  $('#evtStart').val(day + ' 08:30:00');
+					  $('#evtEnd').val(day + ' 17:20:00');  
+					  $('#evtColor').val('#ffffff');  
+					  $('#evtBG').val(profile.default_color);  
+					  $('#evtTxt').val('SW ' + profile.name + " " + profile.surname);
+				  }, 100);
+			  }
+			  catch(e) {
+				  console.error(e);
+			  }            
+			};
+		}
+		else {
+			cell.style = "cursor: default;";
+		}
+	  } 
         
       if (day) { cell.innerHTML = day; }
       rowB.appendChild(cell);

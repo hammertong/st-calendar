@@ -76,7 +76,10 @@ $profile = $_SESSION["profile"];
       <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 7px; font-size: 8mm; margin-bottom: 3px;">&#9679;</span>
       <div style="display: none">
         <input id="calAdd" type="button" value="+">
-      </div>
+      </div>	  
+	  <!--
+	  <a href="logout.php"><img src = "logout.svg" alt="logout" style="height: 24px;"/></a>
+	  -->
     </div>
 
     <!-- (C) CALENDAR WRAPPER -->
