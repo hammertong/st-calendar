@@ -130,6 +130,8 @@ var cal = {
 		//console.log(cellNum % 7);
 		
 		if (cellNum % 7 > 1) {
+			cell.style = "background-color: #eeffee; cursor: pointer"; 
+			cell.title = "programma giornata di smart working";
 			cell.onclick = function(o) {            
 			  try {              
 				  var d = parseInt(o.target.getAttribute('data-day'));
@@ -159,7 +161,7 @@ var cal = {
 			};
 		}
 		else {
-			cell.style = "cursor: default;";
+			cell.style = "background-color: #ffeeee; cursor: default;";
 		}
 	  } 
         

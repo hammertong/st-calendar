@@ -1,24 +1,9 @@
-# ST presence calendar 
+# Smart Working Calendar.
 
-## TODO
-
-### filtro 
-``
-	$('.calRowEvt').each(function(o) { console.log(o); })
-``
+## TODO.
 ### evidenziare click per inserimento 
 
-### export excel del mese
-``         
-          01 02 03 04 ... 30 31 
-username1  x  x     x  
-username2
-username3
-...
-
-``
-
-## Updating admin profiles
+## Set admin profiles, to enable administrative features.
 
 ``
 1) get the users list belonging to admins
