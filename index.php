@@ -8,7 +8,7 @@ $profile = $_SESSION["profile"];
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Calendar Demo</title>
+    <title>Programmazione Smart Working</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5">
     <link rel="icon" type="image/png" href="favicon.png">
@@ -40,8 +40,6 @@ $profile = $_SESSION["profile"];
     <script src="4b-calendar.js"></script>
 	
 	<?php 
-	error_log("....... " . json_encode($profile["roles"]));
-	
 	if (in_array("admin", $profile["roles"])) {
 	?>	
 	<link rel="stylesheet" href="autocomplete.css">
@@ -122,8 +120,8 @@ $profile = $_SESSION["profile"];
 	  }
 	  ?>	
 		  
-      <span style="color: white; font-weight: bolder; opacity: .6; font-style: italic;"><?php echo $profile["organization"]; ?> &nbsp; </span>
-      <span style="color: white; font-weight: bolder;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
+      <span style="color: white; font-weight: bolder; opacity: .5; font-size: 6mm; font-style: normal;"><?php echo $profile["organization"]; ?> &nbsp; </span>
+      <span style="color: white; font-weight: bolder; padding-top: 4px;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
       <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 7px; font-size: 8mm; margin-bottom: 3px;">&#9679;</span>
       <div style="display: none">
         <input id="calAdd" type="button" value="+">
