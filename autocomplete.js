@@ -25,7 +25,7 @@ function autocomplete(inp, arr) {
           b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
           b.innerHTML += arr[i].substr(val.length);
           /*insert a input field that will hold the current array item's value:*/
-          b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+          b.innerHTML += "<input type='hidden' class='autocomplete-hidden' value='" + arr[i] + "'>";
           /*execute a function when someone clicks on the item value (DIV element):*/
               b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
@@ -90,7 +90,25 @@ function autocomplete(inp, arr) {
   }
 }
 /*execute a function when someone clicks in the document:*/
-document.addEventListener("click", function (e) {
-    closeAllLists(e.target);
+document.addEventListener("click", function (e) {	
+    closeAllLists(e.target);		
+	
+	// filter on autocomplete list click (no text input change fired ...)
+	var h = e.target.getElementsByTagName('input');
+	if (!h) return;
+	if (!h.length || h.length == 0) return;
+	var el = h[0];
+	if (!el.classList) return;
+	if (!el.classList.contains('autocomplete-hidden')) return;	
+	var check = el.value.toLowerCase();				
+	$('.calRowEvt').each(function(o, div) { 		
+		if (div.innerHTML.toLowerCase().indexOf(check) >= 0) {
+			div.style.display = 'block';
+		}
+		else {
+			div.style.display = 'none';
+		}
+	});	
+	
 });
 }

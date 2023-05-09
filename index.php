@@ -39,34 +39,48 @@ $profile = $_SESSION["profile"];
     <!-- JS + CSS -->
     <script src="4b-calendar.js"></script>
 	
+	<?php 
+	error_log("....... " . json_encode($profile["roles"]));
+	
+	if (in_array("admin", $profile["roles"])) {
+	?>	
 	<link rel="stylesheet" href="autocomplete.css">
     <script src="autocomplete.js"></script>
+	<?php 
+	}
+	?>
     <script>
 
-		function autocomplete_filter() {			
-			$('.calRowEvt').each(function(o) { 
-				//console.log(o); 
-				debugger;
-			})			
+		function do_export() {
+			location.href = '6c-export.php?year=' + $('#calYear').val() 
+					+ '&month=' + $('#calMonth').val();						
 		}
 
-		
+		window.profile = <?php echo json_encode($profile); ?>;			
+
 		$( document ).ready(function() {
 			
-			window.profile = <?php echo json_encode($profile); ?>;
-					
-			var cc = ['federico', 'giuseppe', 'simone'];
+			if (document.getElementById('myInput')) {
+				document.getElementById('myInput').onchange = function() {				
+					var check = document.getElementById('myInput').value.toLowerCase();			
+					$('.calRowEvt').each(function(o, div) { 		
+						if (check.trim().lenght == 0) {
+							div.style.display = 'block';
+							return;
+						}					
+						if (div.innerHTML.toLowerCase().indexOf(check) >= 0) {
+							div.style.display = 'block';
+						}
+						else {
+							div.style.display = 'none';
+						}
+					});					
+				}
+			}
 			
-			//console.log( "ready!" );
-			autocomplete(document.getElementById("myInput"), cc);
-			
-			
-
 		});
-		
-  
+		  
     </script>
-
     
     <link rel="stylesheet" href="4c-calendar.css">
 	
@@ -95,11 +109,18 @@ $profile = $_SESSION["profile"];
         <input id="calNext" type="button" class="mi" value="&gt;">
       </div>    
 
-	<!--
+	  <?php 
+	  if (in_array("admin", $profile["roles"])) {
+	  ?>	  
+	  <div>
+		<img src="icon-512.png" onclick="do_export()" style="cursor: pointer; height: 32px; padding-right: 30px;" title="Esporta in file Excel" alt="report"></img>
+	  </div>	
 	  <div class="autocomplete">
 		<input autocomplete="off" class="autocomplete" id="myInput" type="text" name="myCountry" placeholder="filtra risultati ...">
-	  </div>
-	  -->
+	  </div>	  
+	  <?php 
+	  }
+	  ?>	
 		  
       <span style="color: white; font-weight: bolder; opacity: .6; font-style: italic;"><?php echo $profile["organization"]; ?> &nbsp; </span>
       <span style="color: white; font-weight: bolder;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>

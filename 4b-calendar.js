@@ -243,6 +243,21 @@ var cal = {
         rowA.appendChild(rowB);
       }
     }}
+	
+	//TBD: move to external location, reload autocompletion ...
+	if (window.profile.roles.includes('admin')) {
+		var myList = [];
+		$('.calRowEvt').each(function(o, e) { 		
+			var tk = e.innerHTML.split(' ');
+			for (var i = 1; i < tk.length; i ++) {
+				if (!myList.includes(tk[i])) {
+					myList.push(tk[i]);				
+				}			
+			}		
+		})		
+		autocomplete(document.getElementById("myInput"), myList);		
+	}
+	
   },
 
   // (G) SHOW EVENT FORM

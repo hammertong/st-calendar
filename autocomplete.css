@@ -17,6 +17,9 @@ input.autocomplete[type=submit] {
   background-color: DodgerBlue;
   color: #fff;
 }
+.autocomplete-hidden {
+	color: #0;
+}
 .autocomplete-items {
   position: absolute;
   border: 1px solid #d4d4d4;
