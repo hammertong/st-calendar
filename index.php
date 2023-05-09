@@ -39,6 +39,7 @@ $profile = $_SESSION["profile"];
     <!-- JS + CSS -->
     <script src="4b-calendar.js"></script>
 	
+	<script src="pasqua.js"></script>
 	<?php 
 	if (in_array("admin", $profile["roles"])) {
 	?>	
