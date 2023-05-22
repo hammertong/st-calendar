@@ -18,7 +18,8 @@ body {
 #calHead {
   display: flex; align-items: center;
   padding: 15px;
-  background: var(--bg-color-a);
+  /*background: var(--bg-color-a);*/
+  background: #000000;
 }
 #calPeriod { flex-grow: 1; }
 #calHead input, #calHead select {
@@ -100,6 +101,15 @@ body {
   background: #fff;
 }
 #evtCX {
+  position: absolute;
+  top: 0; right: 0;
+  padding: 10px;
+  color: #b12020;
+  font-size: 28px;
+  font-weight: 700;
+  cursor: pointer;
+}
+#evtCX2 {
   position: absolute;
   top: 0; right: 0;
   padding: 10px;

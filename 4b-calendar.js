@@ -46,9 +46,11 @@ var cal = {
     cal.hYear.onchange = cal.load;
     document.getElementById("calBack").onclick = () => cal.pshift();
     document.getElementById("calNext").onclick = () => cal.pshift(1);
-    document.getElementById("calAdd").onclick = () => cal.show();
+    //document.getElementById("calAdd").onclick = () => cal.show();
+    document.getElementById("calAdd").onclick = () => popupCalendar();
     cal.hForm.onsubmit = () => cal.save();
     document.getElementById("evtCX").onclick = () => cal.hFormWrap.close();
+    document.getElementById("evtCX2").onclick = () => cal.hFormWrap.close();
     cal.hfDel.onclick = cal.del;
 
     // (C3) DRAW DAY NAMES

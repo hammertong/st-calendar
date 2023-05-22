@@ -27,6 +27,10 @@ $profile = $_SESSION["profile"];
     <!-- https://web.dev/add-manifest/ -->
     <link rel="manifest" href="5-manifest.json">
 
+    <style>
+	.mode-calendar {}
+	.mode-password { display: none; }
+    </style>
     <!-- SERVICE WORKER -->
     <script>
     //if ("serviceWorker" in navigator) {
@@ -78,6 +82,21 @@ $profile = $_SESSION["profile"];
 			}
 			
 		});
+
+	function popupCalendar() {		
+		$('.mode-calendar').show()
+		$('.mode-password').hide()
+		cal.show();
+	}
+
+	function popupPassword() {		
+		$('#psw0').val('');
+		$('#psw1').val('');
+		$('#psw2').val('');
+		$('.mode-calendar').hide()
+		$('.mode-password').show()
+		cal.show();
+	}
 		  
     </script>
     
@@ -121,9 +140,15 @@ $profile = $_SESSION["profile"];
 	  }
 	  ?>	
 		  
-      <span style="color: white; font-weight: bolder; opacity: .5; font-size: 6mm; font-style: normal;"><?php echo $profile["organization"]; ?> &nbsp; </span>
+      <span style="color: white; font-weight: bolder; opacity: .5; font-size: 6mm; font-style: normal; margin-top: 2px;"><?php echo $profile["organization"]; ?> &nbsp; </span>
       <span style="color: white; font-weight: bolder; padding-top: 4px;"><?php echo $profile["name"] . " " . $profile["surname"]; ?></span>
+<!--
       <span style="color: <?php echo $profile["default_color"]; ?>; margin-left: 7px; font-size: 8mm; margin-bottom: 3px;">&#9679;</span>
+-->
+      <div style="height: 24px; cursor: pointer; margin-left: 8px; margin-top: 2px;" onclick="popupPassword()" title="cambia password">
+        <?php include "profile.svg.php"; ?>
+      </div>
+
       <div style="display: none">
         <input id="calAdd" type="button" value="+">
       </div>	  
@@ -139,7 +164,8 @@ $profile = $_SESSION["profile"];
     </div>
 
     <!-- (D) EVENT FORM -->
-    <dialog id="calForm"><form method="dialog">
+    <dialog id="calForm">
+    <form method="dialog" class="mode-calendar">
       <div id="evtCX">X</div>
       <h2 class="evt100">CALENDAR EVENT</h2>
       <div class="evt50">
@@ -167,6 +193,26 @@ $profile = $_SESSION["profile"];
         <input type="button" id="evtDel" value="Delete">
         <input type="submit" id="evtSave" value="Save">
       </div>
-    </form></dialog>
+	</form>
+<form method="dialog" class="mode-password" autocomplete="off">
+      <div id="evtCX2">X</div>
+      <h2 class="evt100">CAMBIO PASSWORD</h2>
+      <div class="evt100">
+        <label>Vecchia password</label>
+        <input id="psw0" placeholder="vecchia password ..." type="password" autocomplete="off" required >
+      </div>
+      <div class="evt100">
+        <label>Nuova password</label>
+        <input id="psw1" placeholder="nuova password ..." type="password" autocomplete="off" required >
+      </div>
+      <div class="evt100">
+        <label>Ripeti password</label>
+        <input id="psw2" placeholder="ripeti nuov password ..." type="password" autocomplete="off" required >
+      </div>
+      <div class="evt100">
+        <input type="submit" value="Aggiorna password">
+      </div>
+</form>
+    </dialog>
   </body>
 </html>
