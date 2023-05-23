@@ -271,12 +271,12 @@ $profile = $_SESSION["profile"];
         <input id="psw0" placeholder="vecchia password ..." type="password" autocomplete="off" required >
       </div>
       <div class="evt100">
-        <label>Nuova password</label>
+        <label>Nuova password <sup>* minimo 8 caratteri, nessuna limitazione</sup></label>
         <input id="psw1" placeholder="nuova password ..." type="password" autocomplete="off" required >
       </div>
       <div class="evt100">
         <label>Ripeti password</label>
-        <input id="psw2" placeholder="ripeti nuov password ..." type="password" autocomplete="off" required >
+        <input id="psw2" placeholder="ripeti la nuova password ..." type="password" autocomplete="off" required >
       </div>
       <div class="evt100">
         <input type="submit" value="Aggiorna password">
