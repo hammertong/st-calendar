@@ -28,8 +28,16 @@ $profile = $_SESSION["profile"];
     <link rel="manifest" href="5-manifest.json">
 
     <style>
-	.mode-calendar {}
-	.mode-password { display: none; }
+
+    .mode-calendar { display: block; }
+    .mode-password { display: none; }
+    input[type="password"] {
+      -webkit-text-security: square;
+    }
+    form.show-passwords input[type="password"] {
+      -webkit-text-security: none;
+    }
+    
     </style>
     <!-- SERVICE WORKER -->
     <script>
@@ -90,6 +98,7 @@ $profile = $_SESSION["profile"];
 	}
 
 	function popupPassword() {		
+    $('#password-message').html('');
 		$('#psw0').val('');
 		$('#psw1').val('');
 		$('#psw2').val('');
@@ -97,6 +106,66 @@ $profile = $_SESSION["profile"];
 		$('.mode-password').show()
 		cal.show();
 	}
+
+  function changePassword() {    
+    $('#password-message').html('');
+    var psw0 = $('#psw0').val();
+    var psw1 = $('#psw1').val();
+    var psw2 = $('#psw2').val();    
+    var status = -1;
+    $.ajax({
+      url: 'changepass.php?psw0=' + psw0 + '&psw1=' + psw1 + "&psw2=" + psw2, 
+      async: false,
+      success: function(data, textStatus, xhr) {
+          status = xhr.status;          
+      },
+      complete: function(xhr, textStatus) {
+          status = xhr.status;          
+      } 
+    });
+    
+    switch (status) {
+      case 410:
+        m = "vecchia password non specificata";
+        break;
+      case 411:
+        m = "primo campo password non specificato ";
+        break;
+      case 412:
+        m = "secondo campo password non specificato ";
+        break;
+      case 413:
+        m = "vecchia password non valida";
+        break;
+      case 414:
+        m = "nuova password troppo corta (minimo 8 caratteri con nessuna limitazione)";
+        break;
+      case 415:
+        m = "conferma password fallita, controllare i campi";
+        break;
+      case 416:
+        m = "vecchia password non valida";
+        break;
+      case 501:
+        m = "recupero vecchia password fallito";
+        break;
+      case 502:
+        m = "aggiornamento password fallito";
+        break;
+      case 200:
+        m = "aggirnamento completato";
+        break;
+      default:
+        m = "errore no gestito: " + status;
+    }
+
+    $('#password-message').html(m);
+
+    if (status == 200)
+        setTimeout(() => { location.href = '/'; }, 1000 );
+
+    return status == 200;
+  }
 		  
     </script>
     
@@ -194,7 +263,7 @@ $profile = $_SESSION["profile"];
         <input type="submit" id="evtSave" value="Save">
       </div>
 	</form>
-<form method="dialog" class="mode-password" autocomplete="off">
+<form id="form-password" method="dialog" class="mode-password" autocomplete="off" onsubmit="return changePassword()">
       <div id="evtCX2">X</div>
       <h2 class="evt100">CAMBIO PASSWORD</h2>
       <div class="evt100">
@@ -212,6 +281,7 @@ $profile = $_SESSION["profile"];
       <div class="evt100">
         <input type="submit" value="Aggiorna password">
       </div>
+      <span id="password-message" style="color: red; font-weight: bolder;"></span>
 </form>
     </dialog>
   </body>
