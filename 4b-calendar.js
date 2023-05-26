@@ -128,10 +128,11 @@ var cal = {
         cell.style.cursor = 'pointer';
         cell.setAttribute('data-day', day); 
 		
-		//debugger;
-		//console.log(cellNum % 7);
-		
-		if (cellNum % 7 > 1) {
+    var titoloFestivo = Festivo(day, 
+          parseInt($('#calMonth').val()), 
+          parseInt($('#calYear').val()));
+    
+		if (cellNum % 7 > 1 && titoloFestivo == null) {
 			cell.style = "background-color: #eeffee; cursor: pointer"; 
 			cell.title = "programma giornata di smart working";
 			cell.onclick = function(o) {            
@@ -163,18 +164,30 @@ var cal = {
 			};
 		}
 		else {
-			cell.style = "background-color: #ffeeee; cursor: default;";
+			cell.style = "background-color: #ffeeee; cursor: default;";      
 		}
 	  } 
         
-      if (day) { cell.innerHTML = day; }
-      rowB.appendChild(cell);
-      cell = document.createElement("div");
-      cell.className = "calCell";      
-      cell.setAttribute('data-day', day);  
-      if (day===undefined) { cell.classList.add("calBlank"); }
-      if (day!==undefined && day==nowDay) { cell.classList.add("calToday"); }
-      rowC.appendChild(cell);
+      if (day) { 
+        var thtml = '<span style="white-space: nowrap;" title="' + titoloFestivo + '">' + day;         
+        if (titoloFestivo) {
+          thtml += '&nbsp;<span style="font-weight: lighter; font-size: smaller; white-space: nowrap;">';
+          thtml += titoloFestivo;
+          thtml += '</span>';
+        }  
+        thtml += '</span>';
+        cell.innerHTML = thtml;
+      }
+
+        rowB.appendChild(cell);
+        cell = document.createElement("div");
+        cell.className = "calCell";      
+        cell.setAttribute('data-day', day);  
+        if (day===undefined) { cell.classList.add("calBlank"); }
+        if (day!==undefined && day==nowDay) { 
+          cell.classList.add("calToday"); 
+        }
+        rowC.appendChild(cell);
     };
     cal.hCB.innerHTML = ""; rower();
 

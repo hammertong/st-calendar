@@ -1,3 +1,43 @@
+function Festivo(day, month, year) {
+  if (day == 1 && month == 1) {
+    return "Capodanno";
+  }
+  else if (day == 6 && month == 1) {
+    return "Epifania";
+  }
+  else if (day == 25 && month == 4) {
+    return "Festa della Liberazione";
+  }
+  else if (day == 1 && month == 5) {
+    return "Festa dei Lavoratori";
+  }
+  else if (day == 2 && month == 6) {
+    return "Festa della Repubblica";
+  }
+  else if (day == 15 && month == 8) {
+    return "Ferragosto";
+  }
+  else if (day == 1 && month == 11) {
+    return "Tutti i santi";
+  }
+  else if (day == 8 && month == 12) {
+    return "Festa del'Immacolata";
+  }
+  else if (day == 25 && month == 12) {
+    return "Natale";
+  }
+  else if (day == 26 && month == 12) {
+    return "Santo Stefano";
+  }
+  else if (controlloPasqua (day, month, year)) {
+    return "Pasqua";
+  }
+  else if (controlloPasqua (day - 1, month, year)) {
+    return "Lunedi dell'Angelo"; 
+  }
+  return null;
+}
+  
 function Pasqua(yyyy) {
 // RITORNA DATA DELLA PASQUA fra il 1753 e il 2500
 var Ap, Bp, Cp, Dp, Ep, Fp, Mp;
@@ -23,6 +63,33 @@ var Ap, Bp, Cp, Dp, Ep, Fp, Mp;
   }
   return (new Date(yyyy, Mp-1, Ep));
 }
+
+function controlloPasqua (dd, mm, yyyy) {
+  var yy = yyyy;
+  var Ap, Bp, Cp, Dp, Ep, Fp, Mp;
+    if (yyyy<100) yyyy = 1900 + yyyy;
+    Ap = yyyy % 19;
+    Bp = yyyy % 4;
+    Cp = yyyy % 7;
+    Dp = (19*Ap + 24) % 30;
+    Fp = 0;            // correzione per secoli
+    if (yyyy<2500) Fp=3;
+    if (yyyy<2300) Fp=2;
+    if (yyyy<2200) Fp=1;
+    if (yyyy<2100) Fp=0;
+    if (yyyy<1900) Fp=6;
+    if (yyyy<1800) Fp=5;
+    if (yyyy<1700) Fp=4;
+    Ep = (2*Bp + 4*Cp + 6*Dp + Fp + 5) % 7;
+    Ep = 22 + Dp + Ep;
+    Mp = 3;
+    if (Ep>31) {
+      Mp = 4;
+      Ep = Ep - 31;
+    }
+    return (yy == yyyy && mm == Mp && dd == Ep);
+  }
+
 // ' ----------------------------------------------------------- 
 function isFest(data) {
 var s,d,p,ff,f
