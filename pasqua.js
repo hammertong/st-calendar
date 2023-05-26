@@ -32,8 +32,11 @@ function Festivo(day, month, year) {
   else if (controlloPasqua (day, month, year)) {
     return "Pasqua";
   }
-  else if (controlloPasqua (day - 1, month, year)) {
-    return "Lunedi dell'Angelo"; 
+  else if (day > 1 && controlloPasqua (day - 1, month, year)) {
+    return "Lunedi dell'Angelo";    
+  }  
+  else if (day == 1 && month == 4 && controlloPasqua (31, 3, year)) {
+    return "Lunedi dell'Angelo";    
   }
   return null;
 }
