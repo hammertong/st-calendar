@@ -91,10 +91,35 @@ $profile = $_SESSION["profile"];
 			
 		});
 
-	function popupCalendar() {		
+
+   
+
+  function centerPopup(target, focusTarget) {
+    if (target[0] != '#') target = "#" + target;
+    var y = $(target).position().top;
+    var h = $(target).height();
+    var H = $( window ).height();
+    var d = H - h;
+    if (d > 0) {
+      d /= 2;
+      y -= d; 
+    }
+    $([document.documentElement, document.body]).animate({
+      scrollTop: y
+    }, 600);
+    if (focusTarget) document.getElementById(focusTarget).focus()
+  }
+
+	function popupCalendar(id) {		
 		$('.mode-calendar').show()
 		$('.mode-password').hide()
-		cal.show();
+    if (id) {
+      cal.show(id);
+    }
+    else {
+      cal.show();  
+    }
+	  centerPopup ('form-calendar', 'psw0');
 	}
 
 	function popupPassword() {		
@@ -105,6 +130,7 @@ $profile = $_SESSION["profile"];
 		$('.mode-calendar').hide()
 		$('.mode-password').show()
 		cal.show();
+    centerPopup ('form-password', 'psw0');
 	}
 
   function changePassword() {    
@@ -162,9 +188,9 @@ $profile = $_SESSION["profile"];
     $('#password-message').html(m);
 
     if (status == 200)
-        setTimeout(() => { location.href = '/'; }, 1000 );
+        setTimeout(() => { location.href = '/'; }, 500 );
 
-    return status == 200;
+    return false;
   }
 		  
     </script>
@@ -234,15 +260,15 @@ $profile = $_SESSION["profile"];
 
     <!-- (D) EVENT FORM -->
     <dialog id="calForm">
-    <form method="dialog" class="mode-calendar">
+    <form method="dialog" class="mode-calendar" id="form-calendar">
       <div id="evtCX">X</div>
-      <h2 class="evt100">CALENDAR EVENT</h2>
+      <h2 class="evt100">EVENTO CALENDARIO</h2>
       <div class="evt50">
-        <label>Start</label>
+        <label>Inizio</label>
         <input id="evtStart" type="datetime-local" required disabled='disabled'>
       </div>
       <div class="evt50">
-        <label>End</label>
+        <label>Fine</label>
         <input id="evtEnd" type="datetime-local" required disabled='disabled'>
       </div>
       <div class="evt50" style="display: none;">
@@ -254,13 +280,13 @@ $profile = $_SESSION["profile"];
         <input id="evtBG" type="color" value="#ffdbdb" required disabled='disabled'>
       </div>
       <div class="evt100">
-        <label>Event</label>
+        <label>Descrizione</label>
         <input id="evtTxt" type="text" required disabled='disabled'>
       </div>
       <div class="evt100">
         <input type="hidden" id="evtID">
-        <input type="button" id="evtDel" value="Delete">
-        <input type="submit" id="evtSave" value="Save">
+        <input type="button" id="evtDel" value="Rimuovi">
+        <input type="submit" id="evtSave" value="Salva">
       </div>
 	</form>
 <form id="form-password" method="dialog" class="mode-password" autocomplete="off" onsubmit="return changePassword()">
@@ -279,7 +305,7 @@ $profile = $_SESSION["profile"];
         <input id="psw2" placeholder="ripeti la nuova password ..." type="password" autocomplete="off" required >
       </div>
       <div class="evt100">
-        <input type="submit" value="Aggiorna password">
+        <input type="submit" value="Aggiorna">
       </div>
       <span id="password-message" style="color: red; font-weight: bolder;"></span>
 </form>

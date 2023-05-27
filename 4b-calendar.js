@@ -251,7 +251,8 @@ var cal = {
 
         if (o!=0) { rowB.classList.add("o"+o); }
         if (cal.events[id]["b"] == profile['default_color']) {
-          rowB.onclick = () => cal.show(id);        
+          //rowB.onclick = () => cal.show(id);
+          rowB.onclick = () => popupCalendar(id);        
           rowB.style.cursor = 'pointer';
         }
         else {
