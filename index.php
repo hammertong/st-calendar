@@ -262,7 +262,7 @@ $profile = $_SESSION["profile"];
     <dialog id="calForm">
     <form method="dialog" class="mode-calendar" id="form-calendar">
       <div id="evtCX">X</div>
-      <h2 class="evt100">EVENTO CALENDARIO</h2>
+      <h2 class="evt100">NUOVO EVENTO</h2>
       <div class="evt50">
         <label>Inizio</label>
         <input id="evtStart" type="datetime-local" required disabled='disabled'>
