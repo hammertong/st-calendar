@@ -1,0 +1,121 @@
+<html>
+<head>
+<script>
+
+function _on_load() {
+	var c = [
+		[ '11' , 'tomatis'        , '#009000', 0], 	
+		[ '12' , 'durando'        , '#119977', 0], 
+		[ '13' , 'genesio'        , '#0000ff', 0], 
+		[ '14' , 'sanfratello'    , '#000099', 0], 	
+		[ '15' , 'sartori'        , '#008822', 0], 
+		[ '16' , 'abdelmessieh'   , '#ff00ff', 0], 
+		[ '17' , 'actis'          , '#808080', 0], 
+		[ '18' , 'chiosea'        , '#ff8080', 0], 
+		[ '19' , 'damelio'        , '#809980', 0], 
+		[ '20' , 'delluniversita' , '#8080ff', 0], 
+		[ '21' , 'ghirardi'       , '#008080', 0], 
+		[ '22' , 'nota'           , '#800080', 0], 
+		[ '23' , 'daniele'        , '#808000', 0], 
+		[ '24' , 'lantero'        , '#4f8f80', 0], 
+		[ '25' , 'zanellato'      , '#0000bb', 0], 
+		[ '26' , 'fauro'          , '#ff80ff', 0], 
+		[ '27' , 'caldiroli'      , '#ff0080', 0], 
+		[ '28' , 'ferrario'       , '#804f16', 0], 
+		[ '29' , 'magistrelli'    , '#0080ff', 0], 
+		[ '30' , 'alice'          , '#008f80', 0], 
+		[ '31' , 'aussello'       , '#8000ff', 0], 
+		[ '32' , 'battaglino'     , '#ff8000', 0], 
+		[ '33' , 'ingrassia'      , '#800000', 0], 
+		[ '34' , 'lerario'        , '#008000', 0], 
+		[ '35' , 'mercurio'       , '#404040', 0], 
+		[ '36' , 'novero'         , '#ff4040', 0], 
+		[ '37' , 'sabatino'       , '#403340', 0], 
+		[ '38' , 'villata'        , '#4040ff', 0], 
+		[ '39' , 'zuin'           , '#ff0000', 0], 
+		[ '40' , 'bruzzese'       , '#ed7d31', 0], 
+		[ '41' , 'castellaro'     , '#404000', 0], 
+		[ '42' , 'montini'        , '#2244cc', 1], 
+		[ '43' , 'piazza'         , '#70ad47', 0], 
+		[ '44' , 'arico'          , '#404080', 0], 
+		[ '45' , 'bardino'        , '#338890', 0], 
+		[ '46' , 'bergamaschini'  , '#4011ee', 0], 
+		[ '47' , 'bertero'        , '#ff40ff', 0], 
+		[ '48' , 'borla'          , '#ff0040', 0], 
+		[ '49' , 'bovo'           , '#409000', 0], 
+		[ '50' , 'bruno'          , '#0040ff', 0], 
+		[ '51' , 'cappelli'       , '#ff8040', 0], 
+		[ '52' , 'd\'amato'       , '#409980', 0], 
+		[ '53' , 'dibella'        , '#8040ff', 0], 
+		[ '54' , 'dimaio'         , '#118840', 0], 
+		[ '55' , 'ivaldi'         , '#4000ff', 0], 
+		[ '56' , 'locurcio'       , '#ff4000', 0], 
+		[ '57' , 'mafrica'        , '#000040', 0], 
+		[ '58' , 'mignogna'       , '#400000', 0], 
+		[ '59' , 'pinto'          , '#004000', 0], 
+		[ '60' , 'scandale'       , '#008040', 0], 
+		[ '61' , 'yamamoto'       , '#400080', 0], 
+		[ '62' , 'sivera'         , '#888800', 0]
+	];
+
+	var sql = '';
+	var ht = '<table style="width: 100 %">';
+	for (var i = 0; i < c.length; i ++) {
+		var clr = c[i];	
+		ht += '<tr><td style="color: white; background:';
+		ht += clr[2];
+		ht += ';">';
+		ht += clr[0];
+		ht += ' ';
+		ht += clr[1];
+		ht += '</td></tr>';	
+		if (clr[3] == 1) {
+			sql += '<br>';
+			sql += 'UPDATE users SET default_color = \'' + clr[2]+ '\' WHERE userid = ' + clr[0] + ';';
+			sql += '<br>';
+			sql += 'UPDATE events SET evt_bg = \'' + clr[2]+ '\' WHERE userid = ' + clr[0] + ';';
+			sql += '<br>';
+		}
+	}
+	
+	ht +='</table>';
+	ht += '<pre>';
+	ht += sql;
+	ht += '</pre>';
+
+	document.getElementById('users').innerHTML = ht;
+}
+
+
+</script>
+
+</head>
+<body style="font-family: Arial, Helvetica;" onload="_on_load()">
+
+<h1 style="background: black;">
+<div style="height: 24px; cursor: pointer; margin-left: 8px; margin-top: 2px;">
+<svg xmlns="http://www.w3.org/2000/svg" width="18.288" height="20.43" viewBox="0 0 18.288 20.43">
+  <g id="user_2_" data-name="user (2)" transform="translate(-24.165)">
+    <g id="Group_104" data-name="Group 104" transform="translate(28.005)">
+      <g id="Group_103" data-name="Group 103">
+        <path fill="#333333" stroke="#ffffff" id="Path_597" data-name="Path 597" d="M116.1,0a5.3,5.3,0,1,0,5.3,5.3A5.319,5.319,0,0,0,116.1,0Z" transform="translate(-110.791)"/>
+      </g>
+    </g>
+    <g id="Group_106" data-name="Group 106" transform="translate(24.165 10.988)">
+      <g id="Group_105" data-name="Group 105" transform="translate(0)">
+        <path fill="#333333" stroke="#ffffff" id="Path_598" data-name="Path 598" d="M42.413,251.7a4.945,4.945,0,0,0-.533-.973,6.593,6.593,0,0,0-4.563-2.872.976.976,0,0,0-.672.162,5.654,5.654,0,0,1-6.671,0,.869.869,0,0,0-.672-.162,6.546,6.546,0,0,0-4.563,2.872,5.7,5.7,0,0,0-.533.973.493.493,0,0,0,.023.44,9.241,9.241,0,0,0,.625.927,8.8,8.8,0,0,0,1.066,1.2,13.886,13.886,0,0,0,1.066.927,10.563,10.563,0,0,0,12.6,0,10.185,10.185,0,0,0,1.066-.927,10.7,10.7,0,0,0,1.066-1.2,8.119,8.119,0,0,0,.625-.927A.4.4,0,0,0,42.413,251.7Z" transform="translate(-24.165 -247.841)"/>
+      </g>
+    </g>
+  </g>
+</svg>
+</div>
+</h1>
+
+<div id="users"></div>
+
+</body>
+</html>
+
+
+
+
