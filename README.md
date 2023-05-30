@@ -1,25 +1,21 @@
 # Smart Working Calendar.
 
-## TODO.
-### evidenziare click per inserimento 
+# DB Administration
 
-## Set admin profiles, to enable administrative features.
+## Profiles management
 
-``
-1) get the users list belonging to admins
-  select userid from users where grp in (select id from `groups` where `name` = 'admin');
+### List all admins
+select users.username, users.userid, `groups`.name, `groups`.id from profiles join users on profiles.userid = users.userid and roleid in (select id from roles where name like 'admin') join `groups` on users.grp = `groups`.id;
 
-2) get the role id of admin
-  select id from roles where `name` ='admin';
+### Add admin privileges to an username
+insert into profiles (userid, roleid) values ((select userid from users where username like '<username>' limit 1), (select id from roles where name like 'admin' limit 1));
 
-3) insert one record in profiles foreach users found
-  insert into profiles (roleid, userid) values (4, 6);
+### Remove admin privileges from an username
+delete from profiles where userid in (select userid from users where username like '<username>');
 
-``
-## Fix colors, when updating default_color in users table
+## UI Issues
+
+### Fix colors, after updating default_color of one or more users in the users table
 ``
 update events set evt_bg = (select default_color from users where users.userid = events.userid);
 ``
-## List all admins
-select users.username, users.userid, `groups`.name, `groups`.id from profiles join users on profiles.userid = users.userid and roleid in (select id from roles where name like 'admin') join `groups` on users.grp = `groups`.id;
-
